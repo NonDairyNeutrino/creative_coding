@@ -1,0 +1,258 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     10352,        249]
+NotebookOptionsPosition[      9846,        228]
+NotebookOutlinePosition[     10188,        243]
+CellTagsIndexPosition[     10145,        240]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Lissajous Curves", "Title",
+ CellChangeTimes->{{3.832432640419383*^9, 3.8324326445947943`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Make", " ", "a", " ", "single", " ", "lissajous", " ", "plot"}], 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Clear", "@", "lissplot"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"lissplot", "[", 
+     RowBox[{"f1_", ",", "f2_", ",", "T_"}], "]"}], ":=", 
+    RowBox[{"ParametricPlot", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Cos", "[", 
+         RowBox[{"f1", " ", "t"}], "]"}], ",", 
+        RowBox[{"Sin", "[", 
+         RowBox[{"f2", " ", "t"}], "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"{", 
+       RowBox[{"t", ",", "0", ",", "T"}], "}"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"PlotRange", "\[Rule]", "1.125"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Axes", "\[Rule]", "False"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Background", "\[Rule]", "Black"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"Epilog", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"PointSize", "[", ".05", "]"}], ",", "Red", ",", 
+         RowBox[{"Point", "@", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Cos", "[", 
+             RowBox[{"f1", " ", "T"}], "]"}], ",", 
+            RowBox[{"Sin", "[", 
+             RowBox[{"f2", " ", "T"}], "]"}]}], "}"}]}]}], "}"}]}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"GridLines", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"Cos", "[", 
+           RowBox[{"\[Omega]1", " ", "T"}], "]"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"Sin", "[", 
+           RowBox[{"\[Omega]2", " ", "T"}], "]"}], "}"}]}], "}"}]}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"GridLinesStyle", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"Dashed", ",", "White"}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"Dashed", ",", "White"}], "}"}]}], "}"}]}]}], 
+     "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "Decide", " ", "which", " ", "set", " ", "of", " ", "frequencies", " ", 
+     "to", " ", "use"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"Clear", "@", "whichlissplot"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"whichlissplot", "[", 
+     RowBox[{"f1_", ",", "f2_", ",", "T_"}], "]"}], ":=", 
+    RowBox[{"Which", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"f1", "\[Equal]", "0"}], "&&", 
+       RowBox[{"f2", "\[Equal]", "0"}]}], ",", 
+      RowBox[{"Graphics", "[", 
+       RowBox[{"Background", "\[Rule]", "Black"}], "]"}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"f2", "\[Equal]", "0"}], ",", 
+      RowBox[{"lissplot", "[", 
+       RowBox[{"f1", ",", "f1", ",", "T"}], "]"}], ",", "\[IndentingNewLine]", 
+      RowBox[{"f1", "\[Equal]", "0"}], ",", 
+      RowBox[{"lissplot", "[", 
+       RowBox[{"f2", ",", "f2", ",", "T"}], "]"}], ",", "\[IndentingNewLine]",
+       "True", ",", 
+      RowBox[{"lissplot", "[", 
+       RowBox[{"f1", ",", "f2", ",", "T"}], "]"}]}], "\[IndentingNewLine]", 
+     "]"}]}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "Format", " ", "the", " ", "table", " ", "of", " ", "plots", " ", "into", 
+     " ", "a", " ", "graphics", " ", "grid"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"Clear", "@", "makegrid"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"makegrid", "[", "plotarray_", "]"}], ":=", 
+    RowBox[{"Rasterize", "@", 
+     RowBox[{"GraphicsGrid", "[", "\[IndentingNewLine]", 
+      RowBox[{"plotarray", ",", "\[IndentingNewLine]", 
+       RowBox[{"Background", "\[Rule]", "Black"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"Spacings", "\[Rule]", "0"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"ImagePadding", "\[Rule]", "0"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"ImageSize", "\[Rule]", 
+        RowBox[{"72", "*", "10"}]}]}], "\[IndentingNewLine]", 
+      "]"}]}]}]}]}]], "Input",
+ CellChangeTimes->{{3.832431421614089*^9, 3.8324314656238537`*^9}, {
+   3.83243225724251*^9, 3.8324322678204265`*^9}, {3.8324322989398365`*^9, 
+   3.8324323006881895`*^9}, {3.832432332460802*^9, 3.8324323625209346`*^9}, {
+   3.8324324061067395`*^9, 3.832432445571952*^9}, {3.8324324758399105`*^9, 
+   3.832432516897421*^9}, {3.832432560918058*^9, 3.832432631817738*^9}, {
+   3.8324330030047345`*^9, 3.832433013205138*^9}, 3.8324356091997724`*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Test", " ", "of", " ", "a", " ", "single", " ", "rasterized", " ", 
+    "grid"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"makegrid", "@", 
+   RowBox[{"Table", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"whichlissplot", "[", 
+      RowBox[{"\[Omega]1", ",", "\[Omega]2", ",", 
+       RowBox[{"\[Pi]", "/", "4"}]}], "]"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"\[Omega]2", ",", 
+       RowBox[{"Range", "[", 
+        RowBox[{"0", ",", "5"}], "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{"{", 
+      RowBox[{"\[Omega]1", ",", 
+       RowBox[{"Range", "[", 
+        RowBox[{"0", ",", "5"}], "]"}]}], "}"}]}], "\[IndentingNewLine]", 
+    "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.832432747560398*^9, 3.8324328799385023`*^9}, {
+  3.8324329173099174`*^9, 3.8324330219847918`*^9}, {3.8324356275046177`*^9, 
+  3.8324356478510356`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{"Clear", "@", "plts"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"plts", "=", 
+   RowBox[{"ParallelMap", "[", "\[IndentingNewLine]", 
+    RowBox[{"makegrid", ",", "\[IndentingNewLine]", 
+     RowBox[{"ParallelTable", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"whichlissplot", "[", 
+        RowBox[{"\[Omega]1", ",", "\[Omega]2", ",", "T"}], "]"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{"T", ",", "0.1", ",", 
+         RowBox[{"2", "\[Pi]"}], ",", 
+         RowBox[{"2", 
+          RowBox[{"\[Pi]", "/", "150"}]}]}], "}"}], ",", 
+       "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{"\[Omega]2", ",", 
+         RowBox[{"Range", "[", 
+          RowBox[{"0", ",", "5"}], "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"{", 
+        RowBox[{"\[Omega]1", ",", 
+         RowBox[{"Range", "[", 
+          RowBox[{"0", ",", "5"}], "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"Method", "->", "\"\<CoarsestGrained\>\""}]}], 
+      "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.780688796808401*^9, 3.7806889409185467`*^9}, {
+   3.7806890725957394`*^9, 3.780689073047661*^9}, {3.7806891162886267`*^9, 
+   3.780689134858713*^9}, {3.78068916696514*^9, 3.7806892010534344`*^9}, {
+   3.7806892346336927`*^9, 3.78068932231184*^9}, 3.7806894192891536`*^9, {
+   3.7806898715530024`*^9, 3.7806898716759787`*^9}, {3.7806899405274143`*^9, 
+   3.7806900504307733`*^9}, {3.7806901010784607`*^9, 3.780690108276009*^9}, {
+   3.7807028421665335`*^9, 3.7807030601423693`*^9}, {3.780703173330183*^9, 
+   3.7807032739212074`*^9}, {3.780703319575886*^9, 3.7807034428950663`*^9}, {
+   3.7807038551134663`*^9, 3.7807038756080203`*^9}, {3.7807039919754467`*^9, 
+   3.780703995126567*^9}, {3.7807044349828033`*^9, 3.7807044559816465`*^9}, {
+   3.7807053597162156`*^9, 3.780705363836769*^9}, {3.7807067384990563`*^9, 
+   3.780706748872972*^9}, 3.7807072917144833`*^9, {3.780801563857607*^9, 
+   3.7808015818063593`*^9}, {3.832428384530943*^9, 3.832428401153493*^9}, {
+   3.832431027221574*^9, 3.832431027418049*^9}, {3.832431482890462*^9, 
+   3.832431510929722*^9}, {3.832431566690383*^9, 3.832431606890483*^9}, {
+   3.8324317738700705`*^9, 3.832431777376751*^9}, {3.832432074625218*^9, 
+   3.832432081570796*^9}, {3.8324321776517515`*^9, 3.832432197399787*^9}, {
+   3.832432309479396*^9, 3.8324323128404617`*^9}, {3.8324323733531914`*^9, 
+   3.8324323890798965`*^9}, {3.832432524794478*^9, 3.832432539457534*^9}, 
+   3.832433001554104*^9}],
+
+Cell[BoxData[
+ RowBox[{"ListAnimate", "[", 
+  RowBox[{"plts", ",", 
+   RowBox[{"DefaultDuration", "\[Rule]", "5"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.7807034545994225`*^9, 3.7807034644500804`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"SetDirectory", "[", 
+  "\"\<C:\\\\Users\\\\Nathan\\ Chapman\\\\Desktop\\\\\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.7807079285385885`*^9, 3.7807079565924683`*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Export", "[", 
+  RowBox[{"\"\<Lissajous_5x5_connected.gif\>\"", ",", "plts", ",", 
+   RowBox[{"DefaultDuration", "\[Rule]", "5"}], ",", 
+   RowBox[{"ImageSize", "\[Rule]", 
+    RowBox[{"72", "*", "10"}]}], ",", 
+   RowBox[{"AspectRatio", "\[Rule]", "1"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.7807077653417535`*^9, 3.7807078116596117`*^9}, {
+   3.780708520891205*^9, 3.7807085288510256`*^9}, {3.7807085915338445`*^9, 
+   3.7807085967325244`*^9}, {3.7807086683978853`*^9, 
+   3.7807086772727876`*^9}, {3.780801620261527*^9, 3.7808016426163235`*^9}, 
+   3.8324282390788994`*^9, {3.832429241863141*^9, 3.832429259422557*^9}, {
+   3.8324310043164186`*^9, 3.832431008738183*^9}, {3.8324356697862024`*^9, 
+   3.8324356747422876`*^9}}]
+}, Open  ]]
+},
+WindowSize->{958, 998},
+WindowMargins->{{Automatic, -7}, {Automatic, 0}},
+FrontEndVersion->"10.1 for Microsoft Windows (64-bit) (March 23, 2015)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 101, 1, 90, "Title"],
+Cell[684, 25, 4454, 100, 592, "Input"],
+Cell[5141, 127, 937, 23, 132, "Input"],
+Cell[6081, 152, 2589, 47, 232, "Input"],
+Cell[8673, 201, 204, 4, 31, "Input"],
+Cell[8880, 207, 191, 3, 31, "Input"],
+Cell[9074, 212, 756, 13, 31, "Input"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
