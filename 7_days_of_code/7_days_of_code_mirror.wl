@@ -46,16 +46,9 @@ planePlot=ParametricPlot3D[
 planeRegion=ImplicitRegion[x==0,{{x, -1, 1},{y,-1,1},{z,-1,1}}];
 
 
-(*Tests*)
-
-
-Flatten[Table[{x,y,z},{x,{-1,1}},{y,-1,1},{z,-1,1}],2]
-Select[%,onOtherSideQ[vpdef]]
-
-
 (*Maybe due to numerical inprecision, some points do not dissapear when they are not behind the screen*)
 With[
-	{vp={5Cos[t/4],5Sin[t/4],10Sin[t/3]}(*spherePoint@{\[Theta],\[Phi]}*),pts=Flatten[Table[{x,y,z},{x,{-1,1}},{y,-1,1,0.5},{z,-1,1,0.5}],2]},
+	{vp={5Cos[t/4],5Sin[t/4],5Sin[t/4]},pts=Flatten[Table[{x,y,z},{x,{-1,1}},{y,-1,1,0.5},{z,-1,1,0.5}],2]},
 	Manipulate[
 		Show[
 			Graphics3D[
@@ -69,15 +62,38 @@ With[
 			],
 			planePlot,
 			SphericalRegion->True,
-			ViewVector->vp,
-			PlotLabel->\[Phi]
+			ViewVector->vp
 		],
 		{t, 0, 8 \[Pi], Animator,DefaultDuration->5}
-		(*{{\[Theta],2.25\[Pi]/5},0,\[Pi]},
-		{{\[Phi],-2.87456},-\[Pi],\[Pi],Animator}*)
 	]
 ]
 
 
-spherePoint@{2.25\[Pi]/5,-2.87456}
-(*This shouldn't evalute*)planePoint[%,{1,-1,1},planeRegion]
+(*Animation*)
+
+
+Clear@frames
+frames = With[
+	{vp={5Cos[t/4],5Sin[t/4],5Sin[t/4]},pts=Flatten[Table[{x,y,z},{x,{-1,1}},{y,-1,1,0.5},{z,-1,1,0.5}],2]},
+	ParallelTable[
+		Rasterize[#, ImageSize->72*5]&@Show[
+			Graphics3D[
+				{
+					{PointSize[0.03],Red,Point@Select[pts,onOtherSideQ[vp]]}
+				},
+				PlotRange->1,
+				Axes->False,
+				AxesOrigin->{0,0,0},
+				Boxed->False
+			],
+			planePlot,
+			SphericalRegion->True,
+			ViewVector->vp
+		],
+		{t, 0, 8 \[Pi], 8 \[Pi]/100}
+	]
+];
+
+
+ListAnimate@frames
+(*Export["mirror.gif", %*)
